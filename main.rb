@@ -40,7 +40,7 @@ class CRM
         Contact.all
       when 5
         puts "Enter first or last name or email address"
-        info = gets.chomp.upcase
+        info = gets.chomp.capitalize
         Contact.search(info)
       when 6
         puts "Bye!"
@@ -56,13 +56,13 @@ class CRM
   def info
     @details = []
     puts "Please enter the first name:"
-      first_name = gets.chomp.upcase
+      first_name = gets.chomp.capitalize
     puts "Please enter the last name:"
-      last_name = gets.chomp.upcase
+      last_name = gets.chomp.capitalize
     puts "Please enter email address:"
-      email = gets.chomp.upcase
+      email = gets.chomp.capitalize
     puts "Please enter notes:"
-      notes = gets.chomp
+      notes = gets.chomp.capitalize
       @first_name = first_name
       @last_name = last_name
       @email = email

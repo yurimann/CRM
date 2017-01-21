@@ -9,7 +9,7 @@ class Contact
 
   def self.all
     @@contacts.each do |contact|
-      puts "ID:#{contact.id} #{contact.first_name.capitalize} #{contact.last_name.capitalize} #{contact.email.downcase} #{contact.note.capitalize}"
+      puts "ID:#{contact.id} #{contact.first_name} #{contact.last_name} #{contact.email} #{contact.note}"
     end
   end
 
@@ -30,9 +30,9 @@ class Contact
 
   def initialize(first_name, last_name, email, note)
     @id = @@next_id
-    @first_name = first_name.upcase
-    @last_name = last_name.upcase
-    @email = email.upcase
+    @first_name = first_name
+    @last_name = last_name
+    @email = email
     @note = note
   end
 
@@ -47,8 +47,8 @@ class Contact
         contact.last_name = last_name
         contact.email = email
         contact.note = note
-      else
-        "No matching ID"
+      puts "Updated details:"
+      puts "#{contact.first_name} #{contact.last_name} #{contact.email} #{contact.note}"
       end
     end
   end
@@ -67,8 +67,10 @@ class Contact
           "Not found"
       end
     end
-    puts result
-    return result
+    puts "Matching contacts:"
+    result.each do |matches|
+      puts "ID [#{matches.id}] #{matches.first_name} #{matches.last_name} #{matches.email} #{matches.note}"
+    end
   end
 
 
