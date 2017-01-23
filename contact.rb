@@ -4,13 +4,21 @@ class Contact
   attr_reader :id
 
     @@contacts = []
-    @@next_id = 0
+    @@next_id = 1900
 
 
   def self.all
+        return @@contacts
+  end
+
+  def self.display_all
     @@contacts.each do |contact|
-      puts "ID:#{contact.id} #{contact.first_name} #{contact.last_name} #{contact.email} #{contact.note}"
+      puts "ID:[#{contact.id}] #{contact.first_name} #{contact.last_name} #{contact.email} #{contact.note}"
     end
+  end
+
+  def self.display_one
+    puts "ID:[#{contact.id}] #{contact.first_name} #{contact.last_name} #{contact.email} #{contact.note}"
   end
 
   def self.create(first_name, last_name, email, note)
@@ -40,23 +48,34 @@ class Contact
     "#{first_name} #{last_name}"
   end
 
-  def self.update(id, first_name, last_name, email, note)
-    @@contacts.each do |contact|
-      if contact.id == id
-        contact.first_name = first_name
-        contact.last_name = last_name
-        contact.email = email
-        contact.note = note
+  def update(to_update, update_info)
+    case to_update
+    when 'first_name'
+        @first_name = update_info
+      when 'last_name'
+        @last_name = update_info
+      when 'email'
+        @email = update_info
+      when 'note'
+        @note = update_info
       puts "Updated details:"
-      puts "#{contact.first_name} #{contact.last_name} #{contact.email} #{contact.note}"
-      end
+      puts "#{@first_name} #{@last_name} #{@email} #{@note}"
     end
   end
 
-  def self.search(info)
+  def self.find(info)
+    @@contacts.each do |contact|
+      if contact.id == info
+          return contact
+     end
+    end
+  end
+
+  def self.find_by(att, value)
+
     result = []
     @@contacts.each do |contact|
-      case info
+      case value
         when contact.first_name
           result << contact
         when contact.last_name
@@ -73,25 +92,17 @@ class Contact
     end
   end
 
-
-
   def self.delete_all
-    @@contacts = [nil]
+    @@contacts = []
   end
 
-  def self.delete(id)
-    @@contacts.each do |contact|
-      if contact.id == id
-        @@contacts.delete(contact)
-      else
-        "No matching ID"
-      end
-    end
+  def delete
+    @@contacts.delete(self)
   end
 
 end
 
-test2 = Contact.create("Michelle","manahan","manahan.michelle@gmail.com","hello!")
-test1 = Contact.create("Yuri","manahan","yuri.manahan@gmail.com","Hi!")
-test3 = Contact.create("marshall", "manahan", "marshall.manahan@gmail.com","Howdy!")
-test4 = Contact.create("Benson", "Henderson", "test@test.com","Bellator")
+test2 = Contact.create("Michelle","Manahan","Manahan.michelle@gmail.com","Hello!")
+test1 = Contact.create("Yuri","Manahan","Yuri.manahan@gmail.com","Hi!")
+test3 = Contact.create("Marshall", "Manahan", "Marshall.manahan@gmail.com","Howdy!")
+test4 = Contact.create("Benson", "Henderson", "Test@test.com","Bellator")
